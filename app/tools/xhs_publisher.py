@@ -1011,11 +1011,34 @@ def fetch_xhs_note(url: str) -> Dict[str, str]:
     print(f"[XHS Spider] 正在抓取小红书链接: {url}")
     
     with sync_playwright() as p:
-        browser = p.chromium.launch(channel="msedge", headless=True)
-        page = browser.new_page()
-        page.set_extra_http_headers({
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-        })
+        browser = p.chromium.launch(
+            channel="msedge", 
+            headless=True,
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--no-sandbox",
+                "--disable-dev-shm-usage"
+            ]
+        )
+        context = browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            viewport={"width": 1280, "height": 800}
+        )
+        # 隐藏自动化测试特征防止爬虫盾检测
+        context.add_init_script("Object.defineProperty(navigator, 'webdriver', { get: () => undefined })")
+        
+        # 尝试共享本地已登录小红书博主账号的 Cookie 凭据，实现免密免登录直接解析
+        cookie_path = os.path.join("app", "static", "xhs_cookies.json")
+        if os.path.exists(cookie_path):
+            try:
+                with open(cookie_path, "r", encoding="utf-8") as f_cookie:
+                    cookies = json.load(f_cookie)
+                context.add_cookies(cookies)
+                print("[XHS Spider] 成功共享载入已登录的小红书真实博主凭证！")
+            except Exception as cookie_err:
+                print(f"[XHS Spider] 共享载入 Cookie 发生错误: {cookie_err}")
+                
+        page = context.new_page()
         
         try:
             page.goto(url, timeout=30000, wait_until="domcontentloaded")
