@@ -63,6 +63,14 @@ class SocialMediaTeam:
         """
         logs = []
         
+        # 重置上一轮的生图缓存，避免本轮因敏感词等报错退化时误用上轮旧图
+        try:
+            last_image_path = os.path.join("app", "static", "generated", "last_image.json")
+            if os.path.exists(last_image_path):
+                os.remove(last_image_path)
+        except Exception as e:
+            print(f"[Team Flow] 重置配图缓存出错: {e}")
+        
         # 封装一个内部回调，用于同时搜集日志和向外部推送
         async def internal_callback(step_data: Dict[str, Any]):
             logs.append(step_data)
@@ -275,6 +283,14 @@ class SocialMediaTeam:
         根据小红书爆款链接进行仿写和发布的工作流。
         """
         logs = []
+        
+        # 重置上一轮的生图缓存，避免本轮因敏感词等报错退化时误用上轮旧图
+        try:
+            last_image_path = os.path.join("app", "static", "generated", "last_image.json")
+            if os.path.exists(last_image_path):
+                os.remove(last_image_path)
+        except Exception as e:
+            print(f"[Team Flow] 重置仿写配图缓存出错: {e}")
         
         async def internal_callback(step_data: Dict[str, Any]):
             logs.append(step_data)
