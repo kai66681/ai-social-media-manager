@@ -5,14 +5,14 @@
 [![License MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/yourusername/ai-social-media-manager?style=flat-square&label=Stars)](https://github.com/yourusername/ai-social-media-manager)
 
-这是一个极具含金量、开箱即用的 **全自动自媒体内容创作与运营智能体 (AI Agent)** 开源项目。专为想要深入理解大模型 Tool-Calling、多智能体协同机制以及异步流式响应 (SSE) 的开发者打造。非常适合写入个人简历，展现大模型落地应用的核心底层功底！
+这是一个极具含金量、开箱即用的 **全自动自媒体内容创作与运营智能体 (AI Agent)** 开源项目。专为想要深入理解大模型 Tool-Calling、多智能体协同机制以及异步流式响应 (SSE) 的团队与开发者打造。旨在展现大模型落地应用与智能协同的卓越技术架构！
 
 ---
 
-## 🌟 项目三大硬核卖点（简历加分项）
+## 🌟 项目三大核心技术优势
 
 1. **手写 ReAct 思考与工具调用 (Tool-Calling) 引擎**
-   - 拒绝套用繁重且不稳定的三方 Agent 框架，**完全基于原生 Python 异步编排手写 ReAct 机制**。通过自定义的 System Prompt 和正则表达式，实现高鲁棒性的工具参数解析、异常重试与自我纠错。证明你具备大模型核心应用的底层构建能力。
+   - 拒绝套用繁重且不稳定的三方 Agent 框架，**完全基于原生 Python 异步编排手写 ReAct 机制**。通过自定义的 System Prompt 和正则表达式，实现高鲁棒性的工具参数解析、异常重试与自我纠错，大幅提升了系统的执行效率、可控性与容错能力。
 2. **多智能体状态机流转与异步 SSE 架构**
    - 实现了一个多角色的智能体开发团队（Trend Hunter 🕵️, Content Planner 🧠, Copywriter ✍️, Visual Designer 🎨, Engagement Agent 💬）。
    - 前后端通过 **SSE (Server-Sent Events) 与 asyncio.Queue** 实现事件驱动通信，可在前端 Dashboard 中**像打字机一样实时看到每个 Agent 在想什么（CoT 思考轨迹）和调用工具的步骤**。
@@ -99,14 +99,4 @@ python run.py
 ```
 启动后，打开浏览器访问 **👉 http://127.0.0.1:8000**，即可体验极具科幻感的智能矩阵运营过程！
 
----
 
-## 📝 简历书写推荐样例
-
-> **项目名称**：AI Social Media Manager (全自动自媒体内容创作与运营智能体)
-> **项目角色**：独立开发 / 开源作者
-> **技术栈**：Python, FastAPI, SSE, SQLite, OpenAI/Gemini/Ollama API
-> **项目亮点与职责**：
-> 1. **手写 Agent 底层引擎**：避免使用重度三方框架，使用原生 Python 异步手写 ReAct (Reasoning & Acting) 智能体引擎，设计结构化工具映射与 JSON/XML 输出拦截正则，极大提升了轻量化与容错控制，并成功适配了 Ollama 本地模型。
-> 2. **异步流式事件架构**：主导设计了基于 **FastAPI + SSE (Server-Sent Events) + asyncio.Queue** 的事件驱动日志架构，将多智能体（热点监控、内容策划、文案生成、视觉创作、互动运营）的 CoT（思考链）流式输出推送到前端 Dashboard，大幅提升了系统的响应实时性和用户体验。
-> 3. **鲁棒的容错机制**：设计了 Tools/LLM 调用失败时的自动回退与 Mock 拟真兜底逻辑，保证在网络不可达或无 API Key 情况下仍能完美流转演示，在 GitHub 上获得了 X 个 Stars（如果开源效果好的话）。
